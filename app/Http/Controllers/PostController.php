@@ -7,7 +7,40 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function index () {
-        echo "<a href='https://www.youtube.com/watch?v=kQsGK5TNTuw&list=PLd2_Os8Cj3t8pnG4ubQemoqnTwf0VFEtU&index=9'>Lesson</a>";
+    public function index ()
+    {
+        $post = Post::where('is_published', 0)->first();
+        $posts = Post::all();
+        foreach($posts as $post){
+            dump($post->title);
+        }
+    }
+    public function create ()
+    {
+        $postsArr = [
+            [
+                'title' => 'title of post from phpastorm',
+                'content' => 'some interesting content',
+                'image' => 'imageblabla.jpg',
+                'likes' => '20',
+                'is_published' => '1',
+            ],
+            [
+                'title' => 'another title of post from phpastorm',
+                'content' => 'another some interesting content',
+                'image' => 'anotherimageblabla.jpg',
+                'likes' => '30',
+                'is_published' => '2',
+            ],
+        ];
+
+        foreach($postsArr as $item){
+//            dd($item);
+            Post::create($item);
+        }
+
+
+
+        dd('created');
     }
 }
